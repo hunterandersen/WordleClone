@@ -1,0 +1,23 @@
+{
+  "name": "wordleclone",
+  "version": "1.0.0",
+  "description": "A clone of the popular Wordle game using React",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^17.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hunterandersen/WordleClone.git"
+  },
+  "author": "Hunter Andersen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hunterandersen/WordleClone/issues"
+  },
+  "homepage": "https://github.com/hunterandersen/WordleClone#readme"
+}
