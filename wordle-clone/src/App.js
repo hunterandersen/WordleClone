@@ -4,21 +4,8 @@ import TileRow from './Components/TileRow';
 function App() {
   return (
     <div className="App">
+      <h1 className="title" >Wordle Clone</h1>
       <TileRow/>
-      <header className="App-header">
-        <p>
-          Hello Hunter
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        
-      </header>
     </div>
   );
 }

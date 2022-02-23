@@ -5,8 +5,65 @@ import Tile from './Tile'
 function TileRow() {
     const [tileLetters, setTileLetters] = useState(['', '', '', '', '']);
 
+    const updateTile = (event, index) => {
+        let newLetter = event.target.value.substring(event.target.value.length - 1);
+        console.log(event.target.value);
+        console.log(`Testing ${index}`);
+
+        if (isAlphaText(newLetter)){
+            //Copy the current state into a temporary array
+            let newLetters = tileLetters.slice();
+            //Update the necessary state
+            newLetters[index] = newLetter;
+            //Set the state. This will trigger a rerender
+            setTileLetters(newLetters);
+            focusTile(index, 1);
+
+        } else if (newLetter == ''){
+            console.log(`NewLetter is empty string: ${newLetter}`);
+            //Copy the current state into a temporary array
+            let newLetters = tileLetters.slice();
+            //Update the necessary state
+            newLetters[index] = newLetter;
+            //Set the state. This will trigger a rerender
+            setTileLetters(newLetters);
+            focusTile(index, -1);
+
+        }else {
+            console.log('Character is unacceptable');
+        }
+        
+    }
+
+    function checkBackspace(event, index){
+        if(event.key === "Backspace" && event.target.value === ''){
+            console.log('Valid Backspace Pressed');
+            focusTile(index, -1);
+        }
+    }
+
+    /*
+        Helper function to focus one of the tiles in the tile row.
+        Takes the starting index position (1-5) and 
+        how far to the right or left you'd like the focus to change.
+        Sets the focus if possible.
+    */
+    function focusTile(index, delta){
+        let nextTile = document.getElementById(`tile-${index+delta}`);
+        console.log(`Index:${index} , Delta:${delta}`);
+        if (nextTile){
+            console.log(nextTile);
+            //Set the window focus to this tile so that the user can continue typing seamlessly
+            nextTile.focus();
+        }
+    }
+
+    /*Utility function
+        Takes some string value
+        Returns whether or not that string is alphabetical
+    */
     function isAlphaText(text){
-        let alphaExpression = /^[a-zA-Z]+$/;
+        let alphaExpression = /^[a-zA-Z]$/;
 
         if (text.match(alphaExpression)){
             return true;
@@ -15,32 +72,12 @@ function TileRow() {
 
     }
 
-    const updateTile = (event, index) => {
-        let newLetter = event.target.value.substring(event.target.value.length - 1);
-        console.log(event.target.value);
-        console.log(`Testing ${index}`);
-
-        if (isAlphaText(newLetter)){
-
-            let newLetters = tileLetters.slice();
-            newLetters[index] = newLetter;
-
-            console.log(`tileLetters at index: ${tileLetters[index]}`);
-            console.log(`newLetters at index: ${newLetters[index]}`);
-            setTileLetters(newLetters);
-
-            console.log(tileLetters);
-        }
-        
-    }
-
     return (
-        <div>
+        <div className="tileRow">
             {console.log('Returning/Rendering')}
-            <h1>My Tiles</h1>
             {tileLetters.map((thing, index, array)=>{
                 {console.log(thing)}
-                return <Tile key={index} letter={thing} index={index} checkLetter={updateTile}/>
+                return <Tile key={index} letter={thing} index={index} checkLetter={updateTile} checkBackspace={checkBackspace}/>
             })}
         </div>
     )
