@@ -1,27 +1,31 @@
 *{
   margin: 0;
   padding: 0;
+  background-color: rgb(19, 19, 19);
 }
 
 .title{
   text-align: center;
+  color:white;
+  margin: 1rem;
 }
 
 .tileRow{
   display: flex;
-  align-content: center;
+  justify-content: center;
 }
 
 .tileInput{
   background-color: rgb(49, 49, 49);
   border:none;
-  margin:1rem;
-  width:40px;
-  height:40px;
+  margin:.2rem;
+  width:4rem;
+  height:4rem;
   cursor:default;
   color: white;
-  
 }
+
 .tileInput:focus{
   outline:none;
+  text-indent: -9999rem;
 }

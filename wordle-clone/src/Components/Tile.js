@@ -4,7 +4,6 @@ function Tile({ letter, index, checkLetter, checkBackspace}) {
 
     return (
         <div className="tile">
-            {console.log(`Child Tile is rendering... ${letter}`)}
             <input 
                 className='tileInput'
                 id={`tile-${index}`}

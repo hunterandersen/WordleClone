@@ -6,9 +6,7 @@ function App() {
   const tileRowArray = [];
 
   return (
-    <div className="App" onFocus={() =>{
-      let newFocusTarget = querySelector();
-    }}>
+    <div className="App" >
       <h1 className="title" >Wordle Clone</h1>
       <TileRow/>
     </div>

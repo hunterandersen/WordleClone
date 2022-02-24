@@ -7,8 +7,6 @@ function TileRow() {
 
     const updateTile = (event, index) => {
         let newLetter = event.target.value.substring(event.target.value.length - 1);
-        console.log(event.target.value);
-        console.log(`Testing ${index}`);
 
         if (isAlphaText(newLetter)){
             //Copy the current state into a temporary array
@@ -37,7 +35,6 @@ function TileRow() {
 
     function checkBackspace(event, index){
         if(event.key === "Backspace" && event.target.value === ''){
-            console.log('Valid Backspace Pressed');
             focusTile(index, -1);
         }
     }
@@ -52,7 +49,6 @@ function TileRow() {
         let nextTile = document.getElementById(`tile-${index+delta}`);
         console.log(`Index:${index} , Delta:${delta}`);
         if (nextTile){
-            console.log(nextTile);
             //Set the window focus to this tile so that the user can continue typing seamlessly
             nextTile.focus();
         }
@@ -76,7 +72,6 @@ function TileRow() {
         <div className="tileRow">
             {console.log('Returning/Rendering')}
             {tileLetters.map((thing, index, array)=>{
-                {console.log(thing)}
                 return <Tile key={index} letter={thing} index={index} checkLetter={updateTile} checkBackspace={checkBackspace}/>
             })}
         </div>
