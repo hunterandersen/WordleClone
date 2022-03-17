@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Tile({ letter, index/* , checkLetter, checkBackspace */}) {
+function Tile({ letter, index, color}) {
 
     return (
         <div className="tile"
             id={`tile-${index}`}
-            
+            style={{backgroundColor:color}}
         >
         {letter}
         </div>

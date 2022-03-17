@@ -1,24 +1,28 @@
 import React from 'react'
-import { useState } from 'react';
+/* import { useState } from 'react'; */
 import Tile from './Tile'
 
-function TileRow( { wordGuess }) {
-    const [tileLetters, setTileLetters] = useState(['', '', '', '', '']);
-    const dummyArray = ['', '', '', '', ''];
+function TileRow( { wordGuess, colors }) {
+    /* const [tileLetters, setTileLetters] = useState(['', '', '', '', '']);
+    
+    const placeHolderArray = ['', '', '', '', '']; */
 
     return (
         <div className="tileRow">
-            {/* {console.log('Returning/Rendering')} */}
-            {/* {tileLetters.map((thing, index, array)=>{
-                return <Tile key={index} letter={thing} index={index} checkLetter={updateTile} checkBackspace={checkBackspace}/>
-            })} */}
-            {dummyArray.map((item, index, array) => {
+            {/* {placeHolderArray.map((item, index, array) => {
                 if (wordGuess[index] === ''){
                     return <Tile key={index} letter={" "} index={index}/>
                 }else{
                     return <Tile key={index} letter={wordGuess[index]} index={index}/>
                 }
-            })}
+            })} */}
+            {colors? colors.map((item, index, array) => {
+                if (wordGuess[index] === ''){
+                    return <Tile key={index} letter={" "} color={item} index={index}/>
+                }else{
+                    return <Tile key={index} letter={wordGuess[index]} color={item} index={index}/>
+                }
+            }) : <>No Colors</>}
         </div>
     )
     
