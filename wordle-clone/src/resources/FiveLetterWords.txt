@@ -3805,6 +3805,7 @@ plods
 plonk
 plops
 plots
+plows
 ploys
 pluck
 plugs

@@ -1,7 +1,6 @@
 import React from 'react'
 
 function Tile({ letter, index, color}) {
-
     return (
         <div className="tile"
             id={`tile-${index}`}
@@ -10,7 +9,6 @@ function Tile({ letter, index, color}) {
         {letter}
         </div>
     )
-    
 }
 
 export default Tile
