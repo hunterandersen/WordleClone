@@ -7,6 +7,12 @@ import wordlist from './resources/FiveLetterWords.txt'
 
 function App() {
 
+  const MESSAGE_WIN = 'Correct! You Win!';
+  const MESSAGE_NOT_WORD = 'Word Not Found, Try Again';
+  const MESSAGE_GAME_OVER = 'Game Over. The word was:';
+  const TITLE_MAIN = 'Wordle Clone';
+  const MESSAGE_START = 'Guess A Word';
+
   const GREEN_COLOR = 'rgb(0, 128, 0)';
   const GREY_COLOR = 'rgb(49, 49, 49)';
   const WRONG_COLOR = 'rgb(39, 33, 33)'
@@ -23,7 +29,7 @@ function App() {
   const [acceptedWords, setAcceptedWords] = useState([]);
   const [tileColors, setTileColors] = useState(defaultColors.slice());
   const [wordToGuess, setWordToGuess] = useState("");
-  const [statusMessage, setStatusMessage] = useState("Guess A Word");
+  const [statusMessage, setStatusMessage] = useState(`${MESSAGE_START}`);
   const focusDiv = useRef(null);
 
   //Gets the list of acceptable English words
@@ -82,15 +88,16 @@ function App() {
 
           if (simpleArrayEquals(tempArray[currentIndex], winningArrayColor)){
             //Player Win Condition
-            setStatusMessage("Correct! You Win!");
+            setStatusMessage(`${MESSAGE_WIN}`);
             newIndex = 7;//Prevent user from guessing once they've won
           }else if (newIndex >= 6){
             //Player Lose Condition
-            setStatusMessage(`Game Over. The word was: ${wordToGuess.toUpperCase()}`);
+            setStatusMessage(`${MESSAGE_GAME_OVER} ${wordToGuess.toUpperCase()}`);
           }
           setCurrentIndex(newIndex);
         }else{
-          setStatusMessage(`Word Not Found, Try Again`);
+          //Let user know that the word they tried was unacceptable
+          setStatusMessage(`${MESSAGE_NOT_WORD}`);
         }
       }
     }
@@ -213,7 +220,7 @@ function App() {
     tabIndex={-1}
     ref={focusDiv}
     >
-      <h1 className="title" >Wordle Clone</h1>
+      <h1 className="title" >{TITLE_MAIN}</h1>
       <h2 className="statusMessage">{statusMessage}</h2>
       {currentWord.map((word, index, array) => {
         return <TileRow wordGuess={word} colors={tileColors[index]} key={index}/>
