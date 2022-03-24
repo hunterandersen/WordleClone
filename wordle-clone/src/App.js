@@ -144,47 +144,30 @@ function App() {
       guess = guess.toLowerCase();
       targetWord = targetWord.toLowerCase();
       
-      let matches = guess.split("").map((letter, index, array) => {
-        if (letter === targetWord[index]){
-          return GREEN_COLOR;
+      let matches = [];
+
+      for (let i = 0; i < guess.length; i++){
+        console.log(`Checking: ${guess[i]} and ${targetWord[i]}`);
+        if (guess[i] === targetWord[i]){
+          targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a potential yellow letter
+          matches[i--] = GREEN_COLOR;
         }
-        else if (targetWord.includes(letter)){
-          let occurencesInGuess = countLetterInWord(letter, guess);
-          let occurencesInTargetWord = countLetterInWord(letter, targetWord);
-          if (occurencesInGuess > occurencesInTargetWord){
-            //If there are more occurences of a letter in the guessed word, than in the target word, then it might be tricky.
-            //Show yellow as long as this occurence of the letter is <= the number of occurences of the letter in the target word.
-            //Find which occurence we're at now. Then see if that is still less than the total occurences in the target word.
-            let thisOccurence = guess.substring(0, index+1).split(letter).length-1;
-            if (thisOccurence <= occurencesInTargetWord){
-              return YELLOW_COLOR;
-            }else{
-              return WRONG_COLOR;
-            }
-          }
-          return YELLOW_COLOR;
+      }
+      for (let i = 0; i < guess.length; i++){
+        console.log(matches[i]);
+        if(matches[i] === GREEN_COLOR){
+          //Feels like there should be a more elegant solution here.
         }
-        return WRONG_COLOR;
-      });
+        else if (targetWord.includes(guess[i])){
+          matches[i] = YELLOW_COLOR;
+        }else{
+          matches[i] = WRONG_COLOR;
+        }
+      }
+      
       return matches;
     }
     return null;
-  }
-
-  function countLetterInWord(letter, word){
-    if (letter && word){
-      letter = letter.toLowerCase();
-      word = word.toLowerCase();
-      let count = 0;
-      let wordArray = word.split("");
-      for (let index in wordArray){
-        if (wordArray[index] === letter){
-          count++;
-        }
-      }
-      return count;
-    }
-    return -1;
   }
 
   function simpleArrayEquals(array1, array2){
@@ -225,6 +208,14 @@ function App() {
       {currentWord.map((word, index, array) => {
         return <TileRow wordGuess={word} colors={tileColors[index]} key={index}/>
       })}
+      <div>
+        {/*
+          I want this to be a  virtual keyboard
+          So, each key should be a clickable item
+          Thinking either button, or just raw div
+          
+        */}
+      </div>
     </div>
   );
 }
