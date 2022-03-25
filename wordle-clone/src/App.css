@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   background-color: rgb(19, 19, 19);
-  color:rgb(100, 110, 110);
   overflow: hidden;
 }
 
@@ -28,6 +27,7 @@
 
 .keyboardContainer{
   display: flex;
+  justify-content: center;
 }
 
 .keyboardKey{
@@ -81,4 +81,7 @@
   /*light green color*/
   color:rgb(56, 143, 85);
   margin: 1rem;
+}
+.statusColor{
+  color:rgb(220, 68, 68);
 }
