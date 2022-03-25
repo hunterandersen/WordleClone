@@ -1,35 +1,24 @@
 import './App.css';
 import { useState, useEffect, useRef } from 'react';
 import TileRow from './Components/TileRow';
+import * as MyConstants from './resources/MyConstants.js'
 
 //Bring in the list of acceptable 5 letter words
 import wordlist from './resources/FiveLetterWords.txt'
 
+//Set up the grid of guesses
+let defaultColors = [];
+for (let i = 0; i < 6; i++){
+  defaultColors[i] = [MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR];
+}
+
 function App() {
-
-  const MESSAGE_WIN = 'Correct! You Win!';
-  const MESSAGE_NOT_WORD = 'Word Not Found, Try Again';
-  const MESSAGE_GAME_OVER = 'Game Over. The word was:';
-  const TITLE_MAIN = 'Wordle Clone';
-  const MESSAGE_START = 'Guess A Word';
-
-  const GREEN_COLOR = 'rgb(0, 128, 0)';
-  const GREY_COLOR = 'rgb(49, 49, 49)';
-  const WRONG_COLOR = 'rgb(39, 33, 33)'
-  const YELLOW_COLOR = 'rgb(248, 205, 15)';
-  const winningArrayColor = [GREEN_COLOR, GREEN_COLOR, GREEN_COLOR, GREEN_COLOR, GREEN_COLOR];
-
-  let defaultColors = [];
-  for (let i = 0; i < 6; i++){
-      defaultColors[i] = [GREY_COLOR, GREY_COLOR, GREY_COLOR, GREY_COLOR, GREY_COLOR];
-  }
-
   const [currentWord, setCurrentWord] = useState(["", "", "", "", "", ""]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [acceptedWords, setAcceptedWords] = useState([]);
   const [tileColors, setTileColors] = useState(defaultColors.slice());
   const [wordToGuess, setWordToGuess] = useState("");
-  const [statusMessage, setStatusMessage] = useState(`${MESSAGE_START}`);
+  const [statusMessage, setStatusMessage] = useState(`${MyConstants.MESSAGE_START}`);
   const focusDiv = useRef(null);
 
   //Gets the list of acceptable English words
@@ -86,18 +75,18 @@ function App() {
           tempArray[currentIndex] = findMatchingTiles(currentWord[currentIndex], wordToGuess);
           setTileColors(tempArray);
 
-          if (simpleArrayEquals(tempArray[currentIndex], winningArrayColor)){
+          if (simpleArrayEquals(tempArray[currentIndex], MyConstants.WINNING_ARRAY_COLOR)){
             //Player Win Condition
-            setStatusMessage(`${MESSAGE_WIN}`);
+            setStatusMessage(`${MyConstants.MESSAGE_WIN}`);
             newIndex = 7;//Prevent user from guessing once they've won
           }else if (newIndex >= 6){
             //Player Lose Condition
-            setStatusMessage(`${MESSAGE_GAME_OVER} ${wordToGuess.toUpperCase()}`);
+            setStatusMessage(`${MyConstants.MESSAGE_GAME_OVER} ${wordToGuess.toUpperCase()}`);
           }
           setCurrentIndex(newIndex);
         }else{
           //Let user know that the word they tried was unacceptable
-          setStatusMessage(`${MESSAGE_NOT_WORD}`);
+          setStatusMessage(`${MyConstants.MESSAGE_NOT_WORD}`);
         }
       }
     }
@@ -147,21 +136,19 @@ function App() {
       let matches = [];
 
       for (let i = 0; i < guess.length; i++){
-        console.log(`Checking: ${guess[i]} and ${targetWord[i]}`);
         if (guess[i] === targetWord[i]){
           targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a potential yellow letter
-          matches[i--] = GREEN_COLOR;
+          matches[i--] = MyConstants.GREEN_COLOR;
         }
       }
       for (let i = 0; i < guess.length; i++){
-        console.log(matches[i]);
-        if(matches[i] === GREEN_COLOR){
+        if(matches[i] === MyConstants.GREEN_COLOR){
           //Feels like there should be a more elegant solution here.
         }
         else if (targetWord.includes(guess[i])){
-          matches[i] = YELLOW_COLOR;
+          matches[i] = MyConstants.YELLOW_COLOR;
         }else{
-          matches[i] = WRONG_COLOR;
+          matches[i] = MyConstants.WRONG_COLOR;
         }
       }
       
@@ -203,7 +190,7 @@ function App() {
     tabIndex={-1}
     ref={focusDiv}
     >
-      <h1 className="title" >{TITLE_MAIN}</h1>
+      <h1 className="title" >{MyConstants.TITLE_MAIN}</h1>
       <h2 className="statusMessage">{statusMessage}</h2>
       {currentWord.map((word, index, array) => {
         return <TileRow wordGuess={word} colors={tileColors[index]} key={index}/>
