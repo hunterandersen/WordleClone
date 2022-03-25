@@ -1,15 +1,24 @@
 import './App.css';
 import { useState, useEffect, useRef } from 'react';
-import TileRow from './Components/TileRow';
+import TileRow from './Components/TileRow.js';
+import KeyboardKey from './Components/KeyboardKey.js';
 import * as MyConstants from './resources/MyConstants.js'
 
 //Bring in the list of acceptable 5 letter words
 import wordlist from './resources/FiveLetterWords.txt'
 
-//Set up the grid of guesses
+//Initialize the grid of guesses
 let defaultColors = [];
 for (let i = 0; i < 6; i++){
   defaultColors[i] = [MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR];
+}
+
+//Initialize the virtual keyboard and its colors
+let keyboardKeys = [];
+let keyboardDefaultColors = [];
+for (let i = 0; i < 26; i++){
+  keyboardKeys[i] = String.fromCharCode(i+65);
+  keyboardDefaultColors[i] = MyConstants.VIRTUAL_KEY_DEFAULT;
 }
 
 function App() {
@@ -19,6 +28,7 @@ function App() {
   const [tileColors, setTileColors] = useState(defaultColors.slice());
   const [wordToGuess, setWordToGuess] = useState("");
   const [statusMessage, setStatusMessage] = useState(`${MyConstants.MESSAGE_START}`);
+  const [keyboardColors, setKeyboardColors] = useState(keyboardDefaultColors.slice());
   const focusDiv = useRef(null);
 
   //Gets the list of acceptable English words
@@ -43,9 +53,7 @@ function App() {
     }
   }, [focusDiv]);
 
-  function handleKeyDown(event){
-    let key = event.key.toUpperCase();
-
+  function handleKey(key){
     if(currentIndex < 6){
       if(key === "BACKSPACE" && currentWord[currentIndex].length > 0){
         //Delete the last character
@@ -73,6 +81,8 @@ function App() {
           //update the tile colors for the guessed word
           let tempArray = tileColors.slice();
           tempArray[currentIndex] = findMatchingTiles(currentWord[currentIndex], wordToGuess);
+          let secondArray = parseMatchingTiles(currentWord[currentIndex], tempArray[currentIndex]);
+          setKeyboardColors(secondArray);
           setTileColors(tempArray);
 
           if (simpleArrayEquals(tempArray[currentIndex], MyConstants.WINNING_ARRAY_COLOR)){
@@ -90,7 +100,15 @@ function App() {
         }
       }
     }
+  }
 
+  function handleVirtualKey(event){
+    handleKey(event.target.innerHTML);
+  }
+
+  function handleKeyDown(event){
+    let key = event.key.toUpperCase();
+    handleKey(key);
   }
 
   /*Assumes that the guess variable is a five letter string
@@ -127,11 +145,29 @@ function App() {
     return false;
   }
 
+  function parseMatchingTiles(guessWord, matchingTiles){
+    let resultArray = keyboardColors.slice();
+    for (let i = 0; i < guessWord.length; i++){
+      if (matchingTiles[i] !== MyConstants.WRONG_COLOR){//If it's green or yellow
+        if(keyboardColors[guessWord[i].charCodeAt(0)-65] !== MyConstants.GREEN_COLOR){//And it hasn't been green before
+          //Never overwrite a Green value
+          resultArray[guessWord[i].charCodeAt(0)-65] = matchingTiles[i]; //Return whatever color it is
+        }else{
+          resultArray[guessWord[i].charCodeAt(0)-65] = MyConstants.GREEN_COLOR;
+        }
+      }
+      else{//Otherwise, it's the wrong color
+        resultArray[guessWord[i].charCodeAt(0)-65] = MyConstants.WRONG_COLOR;
+      }
+    }
+    return resultArray;
+  }
+
   //Check for efficiency improvements. Should be a few I assume
   function findMatchingTiles(guess, targetWord){
     if (guess && targetWord){
-      guess = guess.toLowerCase();
-      targetWord = targetWord.toLowerCase();
+      guess = guess.toUpperCase();
+      targetWord = targetWord.toUpperCase();
       
       let matches = [];
 
@@ -143,7 +179,7 @@ function App() {
       }
       for (let i = 0; i < guess.length; i++){
         if(matches[i] === MyConstants.GREEN_COLOR){
-          //Feels like there should be a more elegant solution here.
+
         }
         else if (targetWord.includes(guess[i])){
           matches[i] = MyConstants.YELLOW_COLOR;
@@ -192,16 +228,15 @@ function App() {
     >
       <h1 className="title" >{MyConstants.TITLE_MAIN}</h1>
       <h2 className="statusMessage">{statusMessage}</h2>
-      {currentWord.map((word, index, array) => {
+      {currentWord.map((word, index) => {
         return <TileRow wordGuess={word} colors={tileColors[index]} key={index}/>
       })}
-      <div>
-        {/*
-          I want this to be a  virtual keyboard
-          So, each key should be a clickable item
-          Thinking either button, or just raw div
-          
-        */}
+      <div className="keyboardContainer">
+        {
+          keyboardKeys.map((thing, index) => {
+            return <KeyboardKey keyValue={thing} color={keyboardColors[index]} handleClickFunc={(e) => handleVirtualKey(e)} key={index}/>
+          })
+        }
       </div>
     </div>
   );

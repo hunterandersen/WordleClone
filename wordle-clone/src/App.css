@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   background-color: rgb(19, 19, 19);
+  color:rgb(100, 110, 110);
+  overflow: hidden;
 }
 
 .app{
@@ -24,11 +26,35 @@
   justify-content: center;
 }
 
+.keyboardContainer{
+  display: flex;
+}
+
+.keyboardKey{
+  display:flex;
+  justify-content: center;
+  margin: .2rem;
+  padding: .8rem;
+  border-radius: 10%;
+  max-width: 4.1rem;
+  max-height: 4.1rem;
+
+  color:white;
+  font-size: 2rem;
+  /* 
+  background-color:rgb(78, 78, 78); */
+
+
+  user-select: none;
+  cursor: pointer;
+}
+
 .tile{
   background-color: rgb(49, 49, 49);
   /* border:none; */
   /* margin:.2rem; */
-  border: .2rem solid black;
+  border: .15rem solid rgb(80, 77, 77);
+  margin: .2rem;
   width:60px;
   height:60px;
   
