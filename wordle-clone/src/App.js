@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect, useRef } from 'react';
 import TileRow from './Components/TileRow.js';
-import KeyboardKey from './Components/KeyboardKey.js';
+import VirtualKeyboard from './Components/VirtualKeyboard';
 import * as MyConstants from './resources/MyConstants.js'
 
 //Bring in the list of acceptable 5 letter words
@@ -13,11 +13,9 @@ for (let i = 0; i < 6; i++){
   defaultColors[i] = [MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR];
 }
 
-//Initialize the virtual keyboard and its colors
-let keyboardKeys = [];
+//Initialize the virtual keyboard colors
 let keyboardDefaultColors = [];
-for (let i = 0; i < 26; i++){
-  keyboardKeys[i] = String.fromCharCode(i+65);
+for (let i = 0; i < 28; i++){
   keyboardDefaultColors[i] = MyConstants.VIRTUAL_KEY_DEFAULT;
 }
 
@@ -55,7 +53,7 @@ function App() {
 
   function handleKey(key){
     if(currentIndex < 6){
-      if(key === "BACKSPACE" && currentWord[currentIndex].length > 0){
+      if((key === "BACKSPACE" || key === "BACK") && currentWord[currentIndex].length > 0){
         //Delete the last character
 
         //Using slice creates a "new" version of the array
@@ -106,7 +104,8 @@ function App() {
   }
 
   function handleVirtualKey(event){
-    handleKey(event.target.innerHTML);
+    let key = event.target.innerHTML;
+    handleKey(key);
   }
 
   function handleKeyDown(event){
@@ -151,9 +150,10 @@ function App() {
   function parseMatchingTiles(guessWord, matchingTiles){
     let resultArray = keyboardColors.slice();
     for (let i = 0; i < guessWord.length; i++){
-      if(keyboardColors[guessWord[i].charCodeAt(0)-65] !== MyConstants.GREEN_COLOR){//Never overwrite a Green value
+      console.log(`${guessWord[i]}: ${keyboardColors[guessWord[i].charCodeAt(0)-65]}`);
+      if(keyboardColors[guessWord[i].charCodeAt(0)-65 ] !== MyConstants.GREEN_COLOR){//Never overwrite a Green value
         if (matchingTiles[i] !== MyConstants.WRONG_COLOR){//If it's green or yellow
-          resultArray[guessWord[i].charCodeAt(0)-65] = matchingTiles[i]; //Return whatever color it is
+          resultArray[guessWord[i].charCodeAt(0)-65 ] = matchingTiles[i]; //Return whatever color it is
         }else{//Otherwise, it's the wrong color
           resultArray[guessWord[i].charCodeAt(0)-65] = MyConstants.WRONG_COLOR;
         }
@@ -230,13 +230,7 @@ function App() {
       {currentWord.map((word, index) => {
         return <TileRow wordGuess={word} colors={tileColors[index]} key={index}/>
       })}
-      <div className="keyboardContainer">
-        {
-          keyboardKeys.map((singleKey, index) => {
-            return <KeyboardKey keyValue={singleKey} color={keyboardColors[index]} handleClickFunc={(e) => handleVirtualKey(e)} key={index}/>
-          })
-        }
-      </div>
+      <VirtualKeyboard colors={keyboardColors} handleClickFunc={handleVirtualKey}/>
     </div>
   );
 }

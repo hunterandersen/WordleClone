@@ -2338,8 +2338,6 @@ hefty
 heinz
 heirs
 heist
-helen
-helga
 helix
 hello
 hells
@@ -2580,7 +2578,6 @@ japan
 japed
 japer
 japes
-jason
 jaunt
 jawed
 jazzy
