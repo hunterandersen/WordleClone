@@ -1,0 +1,122 @@
+*{
+  margin: 0;
+  padding: 0;
+  background-color: rgb(19, 19, 19);
+  --tileWidth: 60px;
+  --keyboardKeyWidth: 2.5rem;
+  --keyboardKeyHeight: 3.5rem;
+}
+
+.app{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+.app:focus{
+  outline:none;
+}
+
+.title{
+  text-align: center;
+  /*off-white color*/
+  color:rgb(207, 206, 206);
+  margin: 1rem;
+}
+
+.tileRow{
+  display: flex;
+  justify-content: center;
+}
+
+.tile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size:3rem;
+  color: white;
+
+  background-color: rgb(49, 49, 49);
+  border: .15rem solid rgb(80, 77, 77);
+  margin: .2rem;
+  padding-bottom: .2rem;
+  width:var(--tileWidth);
+  height:var(--tileWidth);
+  
+  user-select: none;
+  cursor:default;
+}
+
+.statusMessage{
+  text-align: center;
+  /*light green color*/
+  color:rgb(56, 143, 85);
+  margin: 1rem;
+}
+.statusColor{
+  color:rgb(220, 68, 68);
+}
+
+/* Virtual Keyboard Section */
+.keyboardContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.keyboardRowOne{
+  display: flex;
+}
+
+.keyboardRowTwo{
+  display: flex;
+  justify-content: center;
+}
+
+.keyboardRowThree{
+  display: flex;
+}
+
+.keyboardKey{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--keyboardKeyWidth);
+  height: var(--keyboardKeyHeight);
+  margin: .2rem;
+  border-radius: 10%;
+
+  color:white;
+  font-family: sans-serif;
+  font-size: 1rem;
+
+  user-select: none;
+  cursor: pointer;
+}
+.keyboardEnterKey{
+  width: 4rem !important;
+}
+.keyboardBackKey{
+  width: 4rem !important;
+}
+
+/* Media-Queries Section */
+
+@media (max-width: 500px) {
+  *{
+    --keyboardKeyWidth: 2rem;
+  }
+}
+
+@media (max-width: 410px) {
+  *{
+    --keyboardKeyWidth: 1.8rem;
+    --keyboardKeyHeight: 2.5rem;
+    --tileWidth: 50px;
+  }
+}

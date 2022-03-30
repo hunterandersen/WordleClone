@@ -1,4 +1,4 @@
-import './App.css';
+import './style.css';
 import { useState, useEffect, useRef } from 'react';
 import TileRow from './Components/TileRow.js';
 import VirtualKeyboard from './Components/VirtualKeyboard';
@@ -224,7 +224,7 @@ function App() {
     >
       <h1 className="title" >{MyConstants.TITLE_MAIN}</h1>
       <h2 
-        className={`statusMessage ${statusMessage===MyConstants.MESSAGE_NOT_WORD? 'statusColor' : null}`}>
+        className={`statusMessage ${(statusMessage===MyConstants.MESSAGE_NOT_WORD || statusMessage.includes(MyConstants.MESSAGE_GAME_OVER))? 'statusColor' : null}`}>
         {statusMessage}
       </h2>
       {currentWord.map((word, index) => {
