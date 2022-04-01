@@ -150,7 +150,6 @@ function App() {
   function parseMatchingTiles(guessWord, matchingTiles){
     let resultArray = keyboardColors.slice();
     for (let i = 0; i < guessWord.length; i++){
-      console.log(`${guessWord[i]}: ${keyboardColors[guessWord[i].charCodeAt(0)-65]}`);
       if(keyboardColors[guessWord[i].charCodeAt(0)-65 ] !== MyConstants.GREEN_COLOR){//Never overwrite a Green value
         if (matchingTiles[i] !== MyConstants.WRONG_COLOR){//If it's green or yellow
           resultArray[guessWord[i].charCodeAt(0)-65 ] = matchingTiles[i]; //Return whatever color it is
