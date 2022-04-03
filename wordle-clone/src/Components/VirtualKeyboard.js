@@ -29,7 +29,7 @@ function VirtualKeyboard({ colors, handleClickFunc }) {
             <KeyboardKey keyValue={'L'} color={colors['L'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
         </div>
         <div className='keyboardRowThree'>
-            <KeyboardKey keyValue={'ENTER'} color={colors['ENTER'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc}/>
+            <KeyboardKey keyValue={'ENTER'} color={colors[28]} handleClickFunc={handleClickFunc}/>
             <KeyboardKey keyValue={'Z'} color={colors['Z'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
             <KeyboardKey keyValue={'X'} color={colors['X'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
             <KeyboardKey keyValue={'C'} color={colors['C'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
@@ -37,7 +37,7 @@ function VirtualKeyboard({ colors, handleClickFunc }) {
             <KeyboardKey keyValue={'B'} color={colors['B'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
             <KeyboardKey keyValue={'N'} color={colors['N'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
             <KeyboardKey keyValue={'M'} color={colors['M'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
-            <KeyboardKey keyValue={'BACKSPACE'} color={colors['BACKSPACE'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
+            <KeyboardKey keyValue={'BACKSPACE'} color={colors[29]} handleClickFunc={handleClickFunc} />
         </div>
     </div>
   )
