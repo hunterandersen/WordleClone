@@ -171,8 +171,8 @@ function App() {
       let matches = [];
       for (let i = 0; i < guess.length; i++){
         if (guess[i] === targetWord[i]){
-          targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a potential yellow letter
-          matches[i--] = MyConstants.GREEN_COLOR;
+          targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a potential next yellow letter
+          matches[i] = MyConstants.GREEN_COLOR;
         }
       }
       for (let i = 0; i < guess.length; i++){
@@ -180,6 +180,7 @@ function App() {
 
         }
         else if (targetWord.includes(guess[i])){
+          targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a poetential next yellow letter
           matches[i] = MyConstants.YELLOW_COLOR;
         }else{
           matches[i] = MyConstants.WRONG_COLOR;
