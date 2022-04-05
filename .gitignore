@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
+node_modules
 /.pnp
 .pnp.js
 
@@ -23,4 +24,5 @@ notes.md
 
 #firebase
 .firebase
-node_modules
+wordle-clone/firebase.json
+wordle-clone/.firebaserc
