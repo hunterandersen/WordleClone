@@ -1608,7 +1608,6 @@ epoch
 epode
 epoxy
 epsom
-epson
 equal
 equip
 erase
