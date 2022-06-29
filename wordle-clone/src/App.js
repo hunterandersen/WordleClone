@@ -39,7 +39,7 @@ function App() {
       //This could be made slightly more efficient by implementing useReducer so that I don't need this temporary variable
       let tempDictionary = text.split("\n");
       setAcceptedWords(tempDictionary);
-      let tempWord = tempDictionary[Math.floor(Math.random() * tempDictionary.length)]
+      let tempWord = tempDictionary[Math.round(Math.random() * tempDictionary.length)];
       setWordToGuess(tempWord);
     })
     .catch(e => {console.error(e)})
@@ -180,7 +180,7 @@ function App() {
 
         }
         else if (targetWord.includes(guess[i])){
-          targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a poetential next yellow letter
+          targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a potential next yellow letter
           matches[i] = MyConstants.YELLOW_COLOR;
         }else{
           matches[i] = MyConstants.WRONG_COLOR;
