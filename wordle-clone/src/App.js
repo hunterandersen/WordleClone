@@ -5,7 +5,7 @@ import VirtualKeyboard from './Components/VirtualKeyboard';
 import * as MyConstants from './resources/MyConstants.js'
 
 //Bring in the list of acceptable 5 letter words
-import wordlist from './resources/FiveLetterWords.txt'
+import wordlist from './resources/FiveLetterWords-paredDown.txt'
 
 //Initialize the grid of guesses
 let defaultColors = [];
