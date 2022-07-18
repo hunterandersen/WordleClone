@@ -42,12 +42,10 @@ function App() {
     setupWordGuess(dictionary);
     focusPage();
     setHasGameEnded(false);
-    console.log("Initialized Game Variables");
   }
 
   function setupWordGuess(dictionary){
     let tempWord = dictionary[Math.round(Math.random() * dictionary.length)];
-    console.log("New Word to Guess", tempWord);
     setWordToGuess(tempWord);
   }
 
@@ -189,7 +187,6 @@ function App() {
 
   //Check for efficiency improvements. Should be a few I assume
   function findMatchingTiles(guess, targetWord){
-    console.log(guess, targetWord);
     if (guess && targetWord){
       guess = guess.toUpperCase();
       targetWord = targetWord.toUpperCase();
