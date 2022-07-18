@@ -1,5 +1,5 @@
 //Messages for the user
-export const MESSAGE_WIN = 'Correct! You Win!';
+export const MESSAGE_WIN = 'Word Found!';
 export const MESSAGE_NOT_WORD = `Word Not Found, Try Again`;
 export const MESSAGE_GAME_OVER = 'Game Over. The word was:';
 export const MESSAGE_START = 'Guess A Word';

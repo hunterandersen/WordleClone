@@ -1,20 +1,21 @@
 import './style.css';
 import { useState, useEffect, useRef } from 'react';
-import TileRow from './Components/TileRow.js';
+import TileRow from './Components/TileRow';
 import VirtualKeyboard from './Components/VirtualKeyboard';
-import * as MyConstants from './resources/MyConstants.js'
+import PlayAgain from './Components/PlayAgain';
+import Status from './Components/Status';
+import * as MyConstants from './resources/MyConstants'
 
 //Bring in the list of acceptable 5 letter words
 import wordlist from './resources/FiveLetterWords-paredDown.txt'
 
-//Initialize the grid of guesses
 let defaultColors = [];
+let keyboardDefaultColors = [];
+//Initialize the grid of guesses
 for (let i = 0; i < 6; i++){
   defaultColors[i] = [MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR, MyConstants.GREY_COLOR];
 }
-
 //Initialize the virtual keyboard colors
-let keyboardDefaultColors = [];
 for (let i = 0; i < 28; i++){
   keyboardDefaultColors[i] = MyConstants.VIRTUAL_KEY_DEFAULT;
 }
@@ -29,7 +30,33 @@ function App() {
   const [wordToGuess, setWordToGuess] = useState("");
   const [statusMessage, setStatusMessage] = useState(`${MyConstants.MESSAGE_START}`);
   const [keyboardColors, setKeyboardColors] = useState(keyboardDefaultColors.slice());
+  const [hasGameEnded, setHasGameEnded] = useState(false);
   const focusDiv = useRef(null);
+
+  function initGame(dictionary){
+    setCurrentWord(["", "", "", "", "", ""]);
+    setCurrentIndex(0);
+    setTileColors(defaultColors.slice());
+    setStatusMessage(MyConstants.MESSAGE_START);
+    setKeyboardColors(keyboardDefaultColors.slice());
+    setupWordGuess(dictionary);
+    focusPage();
+    setHasGameEnded(false);
+    console.log("Initialized Game Variables");
+  }
+
+  function setupWordGuess(dictionary){
+    let tempWord = dictionary[Math.round(Math.random() * dictionary.length)];
+    console.log("New Word to Guess", tempWord);
+    setWordToGuess(tempWord);
+  }
+
+  //Focus so that typing registers key presses
+  function focusPage(){
+    if (focusDiv.current){
+      focusDiv.current.focus();
+    }
+  }
 
   //Gets the list of acceptable English words
   useEffect(() =>{
@@ -39,19 +66,10 @@ function App() {
       //This could be made slightly more efficient by implementing useReducer so that I don't need this temporary variable
       let tempDictionary = text.split("\n");
       setAcceptedWords(tempDictionary);
-      let tempWord = tempDictionary[Math.round(Math.random() * tempDictionary.length)];
-      setWordToGuess(tempWord);
+      initGame(tempDictionary);
     })
     .catch(e => {console.error(e)})
-
   }, []);
-
-  //Focus on the webpage so the user can begin typing right away
-  useEffect(() => {
-    if (focusDiv.current){
-      focusDiv.current.focus();
-    }
-  }, [focusDiv]);
 
   function handleKey(key){
     if(currentIndex < 6){
@@ -92,9 +110,11 @@ function App() {
             //Player Win Condition
             setStatusMessage(`${MyConstants.MESSAGE_WIN}`);
             newIndex = 7;//Prevent user from guessing once they've won
+            setHasGameEnded(true);
           }else if (newIndex >= 6){
             //Player Lose Condition
             setStatusMessage(`${MyConstants.MESSAGE_GAME_OVER} ${wordToGuess.toUpperCase()}`);
+            setHasGameEnded(true);
           }
           setCurrentIndex(newIndex);
         }else{
@@ -113,6 +133,10 @@ function App() {
   function handleKeyDown(event){
     let key = event.key.toUpperCase();
     handleKey(key);
+  }
+
+  function handlePlayAgain(){
+    initGame(acceptedWords);
   }
 
   /*Assumes that the guess variable is a five letter string
@@ -165,6 +189,7 @@ function App() {
 
   //Check for efficiency improvements. Should be a few I assume
   function findMatchingTiles(guess, targetWord){
+    console.log(guess, targetWord);
     if (guess && targetWord){
       guess = guess.toUpperCase();
       targetWord = targetWord.toUpperCase();
@@ -224,11 +249,8 @@ function App() {
     tabIndex={-1}
     ref={focusDiv}
     >
-      <h1 className="title" >{MyConstants.TITLE_MAIN}</h1>
-      <h2 
-        className={`statusMessage ${(statusMessage===MyConstants.MESSAGE_NOT_WORD || statusMessage.includes(MyConstants.MESSAGE_GAME_OVER))? 'statusColor' : null}`}>
-        {statusMessage}
-      </h2>
+      <h1 className="title">{MyConstants.TITLE_MAIN}</h1>
+      {hasGameEnded? <PlayAgain handlePress={handlePlayAgain} statusMessage={statusMessage}/> : <Status statusMessage={statusMessage}/>}
       {currentWord.map((word, index) => {
         return <TileRow wordGuess={word} colors={tileColors[index]} key={index}/>
       })}

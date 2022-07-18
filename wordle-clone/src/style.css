@@ -1,8 +1,4 @@
 *{
-  margin: 0;
-  padding: 0;
-  background-color: rgb(19, 19, 19);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --tileHeight: 75px;
   --keyboardKeyWidth: 45px;
   --keyboardKeyWidthSpecial: 75px;
@@ -10,6 +6,17 @@
   --keyboardKeyWidthMin: 1rem;
   --keyboardKeyHeightMin: 2rem;
   --tileFontSize: 3rem;
+
+  --titleColor:rgb(207, 206, 206);
+  --backgroundColor:rgb(19, 19, 19);
+  --statusRed:rgb(220, 68, 68);
+  --statusGreen:rgb(56, 143, 85);
+
+  margin: 0;
+  padding: 0;
+  background-color: var(--backgroundColor);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
 }
 
 .app{
@@ -25,7 +32,7 @@
 .title{
   text-align: center;
   /*off-white color*/
-  color:rgb(207, 206, 206);
+  color:var(--titleColor);
   margin: .2em
 }
 
@@ -61,11 +68,19 @@
 .statusMessage{
   text-align: center;
   /*light green color*/
-  color:rgb(56, 143, 85);
+  color:var(--statusGreen);
   margin-bottom: .5em;
 }
-.statusColor{
-  color:rgb(220, 68, 68);
+.statusColorGreen{
+  color:var(--statusGreen)
+}
+.statusColorRed{
+  /*light red color*/
+  color:var(--statusRed)
+}
+
+.titleColor{
+  color:var(--titleColor)
 }
 
 /* Virtual Keyboard Section */
@@ -121,8 +136,28 @@
   max-width: var(--keyboardKeyWidthSpecial) !important;
 }
 
-/* Media-Queries Section */
+/* Play Again Button Section */
+.playAgain{
+  border-color: var(--statusGreen);
+  margin-top: 10px;
+  padding-left:5px;
+  padding-right:5px;
+  margin-left: auto;
+  margin-right: auto;
 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+}
+.playAgain:hover{
+  cursor:pointer;
+}
+/* .playAgain>h2{
+  font-size: var(--tileFontSize);
+  background-color: var(--backgroundColor);
+  color: var(--titleColor);
+} */
+
+/* Media-Queries Section */
 @media (max-width: 285px), (max-height: 700px) {
   *{
     --tileFontSize: 2rem;

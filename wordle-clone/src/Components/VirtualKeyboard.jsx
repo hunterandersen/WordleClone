@@ -2,9 +2,10 @@ import React from 'react'
 import KeyboardKey from './KeyboardKey'
 
 //Responsible for each individual key and its layout
-function VirtualKeyboard({ colors, handleClickFunc }) {
+function VirtualKeyboard({ isHidden, colors, handleClickFunc }) {
   return (
-    <div className='keyboardContainer'>
+    <div hidden={isHidden} className='keyboardContainer'>
+      <span style={{color:"red"}}>{isHidden}</span>
         <div className='keyboardRowOne'>
             <KeyboardKey keyValue={'Q'} color={colors['Q'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
             <KeyboardKey keyValue={'W'} color={colors['W'.charCodeAt(0)-65]} handleClickFunc={handleClickFunc} />
