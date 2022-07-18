@@ -151,11 +151,12 @@
 .playAgain:hover{
   cursor:pointer;
 }
-/* .playAgain>h2{
-  font-size: var(--tileFontSize);
-  background-color: var(--backgroundColor);
-  color: var(--titleColor);
-} */
+.playAgainBorderGreen{
+  border-color: var(--statusGreen);
+}
+.playAgainBorderRed{
+  border-color: var(--statusRed);
+}
 
 /* Media-Queries Section */
 @media (max-width: 285px), (max-height: 700px) {
