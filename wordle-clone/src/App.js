@@ -71,7 +71,6 @@ function App() {
         tempDictionary = text.split("\n");
       }
       setAcceptedWords(tempDictionary);
-      console.log(tempDictionary);
       initGameCallback(tempDictionary);
     })
     .catch(e => {console.error(e)})
@@ -125,7 +124,6 @@ function App() {
           setCurrentIndex(newIndex);
         }else{
           //Let user know that the word they tried was unacceptable
-          console.log(currentWord[currentIndex]);
           setStatusMessage(`${MyConstants.MESSAGE_NOT_WORD}`);
         }
       }
@@ -177,7 +175,6 @@ function App() {
       }
 
     }
-    console.log(guess, "unacceptable");
     return false;
   }
 
