@@ -1,5 +1,5 @@
 import './style.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import TileRow from './Components/TileRow';
 import VirtualKeyboard from './Components/VirtualKeyboard';
 import PlayAgain from './Components/PlayAgain';
@@ -33,6 +33,18 @@ function App() {
   const [hasGameEnded, setHasGameEnded] = useState(false);
   const focusDiv = useRef(null);
 
+  function setupWordGuess(dictionary){
+    let tempWord = dictionary[Math.round(Math.random() * dictionary.length)];
+    setWordToGuess(tempWord);
+  }
+  
+  //Focus so that typing registers key presses
+  function focusPage(){
+    if (focusDiv.current){
+      focusDiv.current.focus();
+    }
+  }
+  
   function initGame(dictionary){
     setCurrentWord(["", "", "", "", "", ""]);
     setCurrentIndex(0);
@@ -44,17 +56,7 @@ function App() {
     setHasGameEnded(false);
   }
 
-  function setupWordGuess(dictionary){
-    let tempWord = dictionary[Math.round(Math.random() * dictionary.length)];
-    setWordToGuess(tempWord);
-  }
-
-  //Focus so that typing registers key presses
-  function focusPage(){
-    if (focusDiv.current){
-      focusDiv.current.focus();
-    }
-  }
+  const initGameCallback = useCallback(initGame, []);
 
   //Gets the list of acceptable English words
   useEffect(() =>{
@@ -62,12 +64,18 @@ function App() {
     .then(response => response.text())
     .then(text => {
       //This could be made slightly more efficient by implementing useReducer so that I don't need this temporary variable
-      let tempDictionary = text.split("\n");
+      let tempDictionary;
+      if (text.includes("\r\n")){
+        tempDictionary = text.split("\r\n");
+      } else {
+        tempDictionary = text.split("\n");
+      }
       setAcceptedWords(tempDictionary);
-      initGame(tempDictionary);
+      console.log(tempDictionary);
+      initGameCallback(tempDictionary);
     })
     .catch(e => {console.error(e)})
-  }, []);
+  }, [initGameCallback]);
 
   function handleKey(key){
     if(currentIndex < 6){
@@ -117,6 +125,7 @@ function App() {
           setCurrentIndex(newIndex);
         }else{
           //Let user know that the word they tried was unacceptable
+          console.log(currentWord[currentIndex]);
           setStatusMessage(`${MyConstants.MESSAGE_NOT_WORD}`);
         }
       }
@@ -168,6 +177,7 @@ function App() {
       }
 
     }
+    console.log(guess, "unacceptable");
     return false;
   }
 
