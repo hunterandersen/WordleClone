@@ -4,7 +4,7 @@ A web app to play wordle as many times as you'd like. No daily limit.
 
 ## App Deployment
 
-**[Try out the game here!](https://hunterwordleclone.web.app/)**
+**[Try out the game here!](https://hunterwordleclone.web.app/)** (hosted with Firebase)
 
 ## Screen Shot(s)
 
