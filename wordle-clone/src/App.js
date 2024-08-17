@@ -19,8 +19,10 @@ for (let i = 0; i < 6; i++){
 for (let i = 0; i < 28; i++){
   keyboardDefaultColors[i] = MyConstants.VIRTUAL_KEY_DEFAULT;
 }
-keyboardDefaultColors[28] = MyConstants.VIRTUAL_KEY_DEFAULT;//ENTER KEY
-keyboardDefaultColors[29] = MyConstants.VIRTUAL_KEY_DEFAULT;//BACKSPACE KEY
+//ENTER KEY
+keyboardDefaultColors[28] = MyConstants.VIRTUAL_KEY_DEFAULT;
+//BACKSPACE KEY
+keyboardDefaultColors[29] = MyConstants.VIRTUAL_KEY_DEFAULT;
 
 function App() {
   const [currentWord, setCurrentWord] = useState(["", "", "", "", "", ""]);
@@ -66,7 +68,7 @@ function App() {
       setAcceptedWords(tempDictionary);
       initGame(tempDictionary);
     })
-    .catch(e => {console.error(e)})
+    .catch(console.error);
   }, []);
 
   function handleKey(key){
@@ -174,10 +176,14 @@ function App() {
   function parseMatchingTiles(guessWord, matchingTiles){
     let resultArray = keyboardColors.slice();
     for (let i = 0; i < guessWord.length; i++){
-      if(keyboardColors[guessWord[i].charCodeAt(0)-65] !== MyConstants.GREEN_COLOR){//Never overwrite a Green value
-        if (matchingTiles[i] !== MyConstants.WRONG_COLOR){//If it's green or yellow
-          resultArray[guessWord[i].charCodeAt(0)-65] = matchingTiles[i]; //Return whatever color it is
-        }else{//Otherwise, it's the wrong color
+      //Never overwrite a Green value
+      if(keyboardColors[guessWord[i].charCodeAt(0)-65] !== MyConstants.GREEN_COLOR){
+        //If it's green or yellow
+        if (matchingTiles[i] !== MyConstants.WRONG_COLOR){
+          //Return whatever color it is
+          resultArray[guessWord[i].charCodeAt(0)-65] = matchingTiles[i]; 
+        }else{
+          //Otherwise, it's the wrong color
           resultArray[guessWord[i].charCodeAt(0)-65] = MyConstants.WRONG_COLOR;
         }
       }
@@ -193,7 +199,8 @@ function App() {
       let matches = [];
       for (let i = 0; i < guess.length; i++){
         if (guess[i] === targetWord[i]){
-          targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a potential next yellow letter
+          //Remove it so it doesn't count for a potential next yellow letter
+          targetWord = targetWord.replace(guess[i], ' ');
           matches[i] = MyConstants.GREEN_COLOR;
         }
       }
@@ -202,7 +209,8 @@ function App() {
 
         }
         else if (targetWord.includes(guess[i])){
-          targetWord = targetWord.replace(guess[i], ' ');//Remove it so it doesn't count for a potential next yellow letter
+          //Remove it so it doesn't count for a potential next yellow letter
+          targetWord = targetWord.replace(guess[i], ' ');
           matches[i] = MyConstants.YELLOW_COLOR;
         }else{
           matches[i] = MyConstants.WRONG_COLOR;
