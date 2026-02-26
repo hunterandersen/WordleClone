@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.2eed899a.css",
-    "main.js": "/static/js/main.73236b17.js",
+    "main.js": "/static/js/main.9b44558e.js",
     "static/js/787.b7eb5c8c.chunk.js": "/static/js/787.b7eb5c8c.chunk.js",
     "static/media/FiveLetterWords-paredDown.txt": "/static/media/FiveLetterWords-paredDown.433435b03dc6001798a9.txt",
     "index.html": "/index.html",
     "main.2eed899a.css.map": "/static/css/main.2eed899a.css.map",
-    "main.73236b17.js.map": "/static/js/main.73236b17.js.map",
+    "main.9b44558e.js.map": "/static/js/main.9b44558e.js.map",
     "787.b7eb5c8c.chunk.js.map": "/static/js/787.b7eb5c8c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2eed899a.css",
-    "static/js/main.73236b17.js"
+    "static/js/main.9b44558e.js"
   ]
 }
