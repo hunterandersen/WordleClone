@@ -1,5 +1,3 @@
-import React from 'react'
-
 function Tile({ letter, index, color}) {
     return (
         <div className="tile"

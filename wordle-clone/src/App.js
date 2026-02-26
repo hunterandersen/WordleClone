@@ -75,13 +75,8 @@ function App() {
       setAcceptedWords(tempDictionary);
       initGameCallback(tempDictionary);
     })
-<<<<<<< HEAD
     .catch(console.error);
   }, []);
-=======
-    .catch(e => {console.error(e)})
-  }, [initGameCallback]);
->>>>>>> cac028e8e095202de66542002c1c7e825336094d
 
   function handleKey(key){
     if(currentIndex < 6){
